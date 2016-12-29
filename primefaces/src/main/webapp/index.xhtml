@@ -1,57 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
-<h:head>
+    <h:head>
 
-<style>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <h:outputScript name="js/primefaces-calendar-ptbr.js"/>     
 
-body {
-	font-size: 10px important;
-}
+    </h:head>
+    <h:body style="padding-top: 100px" >
 
-</style>
-
-</h:head>
-<h:body>
-
-
-	<h:form>
-		<p:panel header="Plano de Voo"  >
-		
-		<h:panelGrid columns="3" >
-		
-		<h:outputText value="Planeta" ></h:outputText>
-		<h:outputText value="Veículo" ></h:outputText>
-		<h:outputText value="Tripulante" ></h:outputText>
-		
-		<p:selectOneMenu  value="#{planoVooMB.planet}" 
-		  converter="simpleEntityConverter"  >            
-            <f:selectItems value="#{planoVooMB.listaPlanet}" />
-        </p:selectOneMenu>
+ 
         
-        <p:selectOneMenu  value="#{planoVooMB.vehicle}" 
-		  converter="simpleEntityConverter"  >            
-            <f:selectItems value="#{planoVooMB.listaVehicle}" />
-        </p:selectOneMenu>
-        
-         <p:selectOneMenu  value="#{planoVooMB.people}" 
-		  converter="simpleEntityConverter"  >            
-            <f:selectItems value="#{planoVooMB.listaPeople}" />
-        </p:selectOneMenu>
-        
-        <p:commandButton  actionListener="#{planoVooMB.schedule()}"  value="Agendar"    />
-        
-        </h:panelGrid>
+        <p:panel  id="pnc" header="Plano de Voo" style="height: 500px; width: 800px; margin: 0 auto;background-color: transparent"  >
+
+            <p:messages id="messages"  autoUpdate="true"    />
+            
+            <h:form id="formTrip"  >
+                <p:fieldset id="fs" legend="Tripulantes" style="float: left;margin-top: 45px"   >
+                    <h:panelGrid  id="pg1" columns="2"  >
+                        <p:selectOneMenu  value="#{planoVooMB.people}" 
+                                          converter="simpleEntityConverter"  >            
+                            <f:selectItems value="#{planoVooMB.listaPeople}" />
+                        </p:selectOneMenu>
+
+                        <p:commandButton update="dtP"  value="Adicionar" action="#{planoVooMB.insertPeople()}"  />
+                    </h:panelGrid>   
+                    <p:dataTable    var="item" id="dtP"  value="#{planoVooMB.listaPeopleCadastro}" >
+                        <p:column>
+                            <h:outputText value="#{item.name} - #{item.gender}"    />
+                        </p:column>                            
+                        <p:column width="17" >
+                            <p:commandButton update="@form" icon="ui-icon-trash" action="#{planoVooMB.removePeople(item)}"  />                                
+                        </p:column>                                                                             
+                    </p:dataTable>
+                </p:fieldset>
+            </h:form>     
+            <h:form id="formAg" >
+                <h:panelGrid id="pgag1" columns="3" >
+
+                    <h:panelGrid id="pgag2" columns="1" width="500px"  >
+                        <h:panelGrid columns="3" >
+                            <h:outputText style="color: white"  value="Planeta" ></h:outputText>
+                            <h:outputText style="color: white"  value="Nave" ></h:outputText>
+                            <h:outputText value="" ></h:outputText>
+
+                            <p:selectOneMenu style="width: 200px"  value="#{planoVooMB.planet}" 
+                                             converter="simpleEntityConverter"  >            
+                                <f:selectItems value="#{planoVooMB.listaPlanet}" />
+                            </p:selectOneMenu>
+
+                            <p:selectOneMenu style="width: 200px"   value="#{planoVooMB.vehicle}" 
+                                             converter="simpleEntityConverter"  >            
+                                <f:selectItems value="#{planoVooMB.listaVehicle}" />
+                            </p:selectOneMenu>
+
+                            <p:commandButton update="dtPl,:formTrip" actionListener="#{planoVooMB.schedule()}"  value="Agendar"    />
+                        </h:panelGrid>
+
+                        <p:dataTable    var="item" id="dtPl"  value="#{planoVooMB.listaDataBase}" >
+                            <p:column headerText="Planeta" >
+                                <h:outputText value="#{item.planet.name}"    />
+                            </p:column>                            
+                            <p:column headerText="Nave"  >
+                                <h:outputText value="#{item.vehicle.name}"    />
+                            </p:column>
+                            <p:column headerText="Tripulantes"  >
+                                <h:outputText value="#{item.listaPessoas.size()}"    />
+                            </p:column>
+                            <p:column width="17" >
+                                <p:commandButton actionListener="#{planoVooMB.viewData(item)}"  update=":formAg:dlg1"  icon="ui-icon-search"  oncomplete="dlg1.show();"   />                                             
+                            </p:column>                                                                             
+                        </p:dataTable>                       
 
 
-		</p:panel>
-	</h:form>
+                        <p:dialog id="dlg1" widgetVar="dlg1" >
+                            <p:fieldset legend="Planeta" >
+                                <h:panelGrid columns="12" style="float: left;margin-top: 10px" >
+                                    <h:outputText style="font-weight: bold"  value="Nome:"   />
+                                    <h:outputText value="#{planoVooMB.dataBaseView.planet.name}"   />
+                                    <h:outputText style="font-weight: bold"  value="Diametro:"   />
+                                    <h:outputText value="#{planoVooMB.dataBaseView.planet.diameter}"   />
+                                    <h:outputText style="font-weight: bold"  value="Clima:"   />
+                                    <h:outputText value="#{planoVooMB.dataBaseView.planet.climate}"   />
+                                    <h:outputText style="font-weight: bold"  value="Terreno:"   />
+                                    <h:outputText value="#{planoVooMB.dataBaseView.planet.terrain}"   />
+                                    <h:outputText style="font-weight: bold"  value="População:"   />   
+                                    <h:outputText value="#{planoVooMB.dataBaseView.planet.population}"   />                      
+                                </h:panelGrid>
+                            </p:fieldset>
 
-</h:body>
+                            <p:fieldset legend="Nave" style="float: left;margin-top: 10px"  >
+                                <h:panelGrid   columns="6" >
+                                    <h:outputText style="font-weight: bold"  value="Nome:"   />
+                                    <h:outputText value="#{planoVooMB.dataBaseView.vehicle.name}"   />
+                                    <h:outputText style="font-weight: bold"  value="Modelo:"   />
+                                    <h:outputText value="#{planoVooMB.dataBaseView.vehicle.model}"   />
+                                    <h:outputText style="font-weight: bold"  value="Passageiros:"   />
+                                    <h:outputText value="#{planoVooMB.dataBaseView.vehicle.passengers}"   />                                                    
+                                </h:panelGrid>                         
+
+                            </p:fieldset>
+
+                            <p:fieldset id="fs" legend="Tripulantes" style="float: left;margin-top: 10px"   >
+                             
+                                <p:dataTable    var="item" id="dtP"  value="#{planoVooMB.listaPeopleBaseView}" >
+                                    <p:column>
+                                        <h:outputText value="#{item.name} - #{item.gender}"    />
+                                    </p:column>                           
+                                                                                                              
+                                </p:dataTable>
+                            </p:fieldset>
+
+
+                        </p:dialog>
+
+                    </h:panelGrid>
+
+
+
+
+                </h:panelGrid>
+
+
+
+
+
+
+            </h:form>
+
+
+
+
+
+
+        </p:panel>
+
+
+    </h:body>
 </html>

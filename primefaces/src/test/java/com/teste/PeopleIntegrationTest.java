@@ -12,7 +12,7 @@ import com.teste.model.VehicleJsonWrapper;
 
 public class PeopleIntegrationTest {
 
-	@Test
+	//@Test
 	public void test() {
 		PeopleIntegration jerseyClientGet = new PeopleIntegrationImpl();
 		PeopleJsonWrapper jeopleJsonWrapper = jerseyClientGet.run();		

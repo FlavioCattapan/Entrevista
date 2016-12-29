@@ -9,7 +9,7 @@ import com.teste.model.VehicleJsonWrapper;
 
 public class VehicleIntegrationTest {
 
-	@Test
+	//@Test
 	public void test() {
 		VehicleIntegration jerseyClientGet = new VehicleIntegrationImpl();
 		VehicleJsonWrapper vehicleJsonWrapper = jerseyClientGet.run();		
