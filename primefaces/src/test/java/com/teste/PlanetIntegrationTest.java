@@ -10,7 +10,7 @@ import com.teste.model.PlanetJsonWrapper;
 
 public class PlanetIntegrationTest {
 
-	//@Test
+	@Test
 	public void test() {
 		PlanetIntegration jerseyClientGet = new PlanetIntegrationImpl();
 		PlanetJsonWrapper planetJsonWrapper = jerseyClientGet.run();		
