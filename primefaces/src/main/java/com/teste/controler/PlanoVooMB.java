@@ -55,9 +55,9 @@ public class PlanoVooMB implements Serializable {
 
     @PostConstruct
     private void initialize() {
-//		this.listaPlanet = planetSingleton.getPlanetJsonWrapper().getResults();
-//		this.listaVehicle = vehicleSingleton.getVehicleJsonWrapper().getResults();
-//		this.listaPeople = peopleSingleton.getPeopleJsonWrapper().getResults();
+		this.listaPlanet = planetSingleton.getPlanetJsonWrapper().getResults();
+		this.listaVehicle = vehicleSingleton.getVehicleJsonWrapper().getResults();
+		this.listaPeople = peopleSingleton.getPeopleJsonWrapper().getResults();
 
         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
@@ -67,71 +67,7 @@ public class PlanoVooMB implements Serializable {
         dataBaseView = new DataBase();
         dataBaseView.setListaPessoas(new HashSet<People>());
 
-        this.listaPlanet = new ArrayList<Planet>();
-        Planet planet1 = new Planet();
-        planet1.setName("Alderaan");
-        planet1.setDiameter("12500");
-        planet1.setClimate("temperate");
-        planet1.setTerrain("grasslands");
-        planet1.setPopulation("2000000000");
-        this.listaPlanet.add(planet1);
-
-        Planet planet2 = new Planet();
-        planet2.setName("Yavin IV");
-        planet2.setDiameter("10200");
-        planet2.setClimate("temperate, tropical");
-        planet2.setTerrain("jungle, rainforests");
-        planet2.setPopulation("1000");
-        this.listaPlanet.add(planet2);
-
-        Planet planet3 = new Planet();
-        planet3.setName("Hoth");
-        planet3.setDiameter("7200");
-        planet3.setClimate("frozen");
-        planet3.setTerrain("tundra, ice caves, mountain ranges");
-        planet3.setPopulation("unknown");
-        this.listaPlanet.add(planet3);
-
-        this.listaPeople = new ArrayList<People>();
-        People people1 = new People();
-        people1.setName("Luke Skywalker");
-        people1.setGender("male");
-        this.listaPeople.add(people1);
-
-        People people2 = new People();
-        people2.setName("C-3PO");
-        people2.setGender("n/a");
-        this.listaPeople.add(people2);
-
-        People people3 = new People();
-        people3.setName("R2-D2");
-        people3.setGender("n/a");
-        this.listaPeople.add(people3);
-
-        People people4 = new People();
-        people4.setName("Darth Vader");
-        people4.setGender("male");
-        this.listaPeople.add(people4);
-
-        this.listaVehicle = new ArrayList<Vehicle>();
-        Vehicle vehicle1 = new Vehicle();
-        vehicle1.setName("Sand Crawler");
-        vehicle1.setModel("Digger Crawler");
-        vehicle1.setPassengers("30");
-        this.listaVehicle.add(vehicle1);
-
-        Vehicle vehicle2 = new Vehicle();
-        vehicle2.setName("T-16 skyhopper");
-        vehicle2.setModel("T-16 skyhopper");
-        vehicle2.setPassengers("1");
-        this.listaVehicle.add(vehicle2);
-
-        Vehicle vehicle3 = new Vehicle();
-        vehicle3.setName("X-34 landspeeder");
-        vehicle3.setModel("X-34 landspeeder");
-        vehicle3.setPassengers("1");
-        this.listaVehicle.add(vehicle3);
-
+      
     }
 
     public void viewData(DataBase data) {

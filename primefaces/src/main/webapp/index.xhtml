@@ -22,7 +22,7 @@
             <p:messages id="messages"  autoUpdate="true"    />
             
             <h:form id="formTrip"  >
-                <p:fieldset id="fs" legend="Tripulantes" style="float: left;margin-top: 45px"   >
+                <p:fieldset id="fs" legend="Tripulantes" style="margin-top: 45px;width : 200px;float :left;"   >
                     <h:panelGrid  id="pg1" columns="2"  >
                         <p:selectOneMenu  value="#{planoVooMB.people}" 
                                           converter="simpleEntityConverter"  >            
@@ -41,8 +41,8 @@
                     </p:dataTable>
                 </p:fieldset>
             </h:form>     
-            <h:form id="formAg" >
-                <h:panelGrid id="pgag1" columns="3" >
+            <h:form id="formAg"    >
+                <h:panelGrid id="pgag1" columns="3" style="float: left;margin-top: 45px"  >
 
                     <h:panelGrid id="pgag2" columns="1" width="500px"  >
                         <h:panelGrid columns="3" >
@@ -63,7 +63,7 @@
                             <p:commandButton update="dtPl,:formTrip" actionListener="#{planoVooMB.schedule()}"  value="Agendar"    />
                         </h:panelGrid>
 
-                        <p:dataTable    var="item" id="dtPl"  value="#{planoVooMB.listaDataBase}" >
+                        <p:dataTable    var="item" id="dtPl"    value="#{planoVooMB.listaDataBase}" >
                             <p:column headerText="Planeta" >
                                 <h:outputText value="#{item.planet.name}"    />
                             </p:column>                            
@@ -74,12 +74,12 @@
                                 <h:outputText value="#{item.listaPessoas.size()}"    />
                             </p:column>
                             <p:column width="17" >
-                                <p:commandButton actionListener="#{planoVooMB.viewData(item)}"  update=":formAg:dlg1"  icon="ui-icon-search"  oncomplete="dlg1.show();"   />                                             
+                                <p:commandButton actionListener="#{planoVooMB.viewData(item)}"  update=":formAg:dlg1"  icon="ui-icon-search"  oncomplete="PF('dlg1').show();"   />                                             
                             </p:column>                                                                             
                         </p:dataTable>                       
 
 
-                        <p:dialog id="dlg1" widgetVar="dlg1" >
+                        <p:dialog id="dlg1" widgetVar="dlg1" width="600" >
                             <p:fieldset legend="Planeta" >
                                 <h:panelGrid columns="12" style="float: left;margin-top: 10px" >
                                     <h:outputText style="font-weight: bold"  value="Nome:"   />
