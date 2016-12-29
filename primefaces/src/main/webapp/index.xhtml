@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+<style>
+
+body {
+	font-size: 10px important;
+}
+
+</style>
+
+</h:head>
+<h:body>
+
+
+	<h:form>
+		<p:panel header="Plano de Voo"  >
+		
+		<h:panelGrid columns="3" >
+		
+		<h:outputText value="Planeta" ></h:outputText>
+		<h:outputText value="Veículo" ></h:outputText>
+		<h:outputText value="Tripulante" ></h:outputText>
+		
+		<p:selectOneMenu  value="#{planoVooMB.planet}" 
+		  converter="simpleEntityConverter"  >            
+            <f:selectItems value="#{planoVooMB.listaPlanet}" />
+        </p:selectOneMenu>
+        
+        <p:selectOneMenu  value="#{planoVooMB.vehicle}" 
+		  converter="simpleEntityConverter"  >            
+            <f:selectItems value="#{planoVooMB.listaVehicle}" />
+        </p:selectOneMenu>
+        
+         <p:selectOneMenu  value="#{planoVooMB.people}" 
+		  converter="simpleEntityConverter"  >            
+            <f:selectItems value="#{planoVooMB.listaPeople}" />
+        </p:selectOneMenu>
+        
+        <p:commandButton  actionListener="#{planoVooMB.schedule()}"  value="Agendar"    />
+        
+        </h:panelGrid>
+
+
+		</p:panel>
+	</h:form>
+
+</h:body>
+</html>
